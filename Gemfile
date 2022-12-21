@@ -9,3 +9,5 @@ gem "rspec", "~> 3.12"
 gem "twilio-ruby", "~> 5.73"
 
 gem "rubocop", "~> 1.40"
+
+gem "dotenv"

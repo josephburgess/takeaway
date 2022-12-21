@@ -1,15 +1,20 @@
-# require 'twilio-ruby'
+require 'twilio-ruby'
+require 'dotenv'
+Dotenv.load('twilio.env')
 
-# # Find your Account SID and Auth Token at twilio.com/console
-# # and set the environment variables. See http://twil.io/secure
-# account_sid = ENV['x']
-# auth_token = ENV['x']
-# @client = Twilio::REST::Client.new(account_sid, auth_token)
+class SendSMS
+  def initialize(number)
+    @number = number
+    @client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+  end
 
-# message = @client.messages.create(
-#   body: 'Thank you for your order',
-#   from: '+17262043600',
-#   to: '+447769325254'
-# )
+  def message
+    message = @client.messages.create(
+      body: "Thank you, your order will be with you by #{Time.now + 1800}",
+      from: ENV['TWILIO_NUMBER'],
+      to: @number
+    )
 
-# puts message.sid
+    message.body
+  end
+end
